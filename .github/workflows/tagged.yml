@@ -1,0 +1,24 @@
+name: tagでpublishしたい
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  my-tagged:
+    name: my-tagged
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v2
+      - name: gradle build
+        run: |
+          ./gradlew build
+      - name: publish
+        env:
+          USERNAME: ${{ github.repository_owner }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF: ${{ github.ref }}
+        run: |
+          VERSION=${REF##*/}
+          echo ${VERSION}
+          VERSION=${REF##*/} ./gradlew publish
