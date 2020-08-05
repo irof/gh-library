@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: gradle build
       - name: publish
         env:
           USERNAME: ${{ github.repository_owner }}
