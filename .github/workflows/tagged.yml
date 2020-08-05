@@ -14,5 +14,6 @@ jobs:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REF: ${{ github.ref }}
         run: |
-          VERSION=${REF##*/}
+          export VERSION=${REF##*/}
+          export REPOSITORY_URL=https://maven.pkg.github.com/${GITHUB_REPOSITORY}
           ./gradlew publish
